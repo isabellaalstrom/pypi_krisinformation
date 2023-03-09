@@ -160,14 +160,18 @@ class KrisinformationAPIBase:
     """
 
     @abc.abstractmethod
-    def get_news_api(self, longitude: str, latitude: str):
+    def get_all_news_api(self, longitude: str, latitude: str):
         """Override this"""
-        raise NotImplementedError("users must define get_news to use this base class")
+        raise NotImplementedError(
+            "users must define get_all_news_api to use this base class"
+        )
 
     @abc.abstractmethod
-    async def async_get_news_api(self, longitude: str, latitude: str):
+    async def async_get_all_news_api(self, longitude: str, latitude: str):
         """Override this"""
-        raise NotImplementedError("users must define get_news to use this base class")
+        raise NotImplementedError(
+            "users must define async_get_all_news_api to use this base class"
+        )
 
 
 # pylint: disable=R0903
@@ -180,7 +184,7 @@ class KrisinformationAPI(KrisinformationAPIBase):
         """Init the API with or without session"""
         self.session = None
 
-    def get_news_api(self, longitude: str, latitude: str):
+    def get_all_news_api(self, longitude: str, latitude: str):
         """gets data from API"""
         api_url = BASEURL + NEWS_ENDPOINT
 
@@ -190,7 +194,7 @@ class KrisinformationAPI(KrisinformationAPIBase):
 
         return json_data
 
-    async def async_get_news_api(self, longitude: str, latitude: str):
+    async def async_get_all_news_api(self, longitude: str, latitude: str):
         """gets data from API asyncronious"""
         api_url = BASEURL + NEWS_ENDPOINT
 
@@ -238,14 +242,16 @@ class Krisinformation:
         """
         Returns a list of news.
         """
-        json_data = self._api.get_news_api(self._longitude, self._latitude)
+        json_data = self._api.get_all_news_api(self._longitude, self._latitude)
         return _get_news(json_data)
 
     async def async_get_news(self) -> List[KrisinformationNews]:
         """
         Returns a list of forecasts. The first in list are the current one
         """
-        json_data = await self._api.async_get_news_api(self._longitude, self._latitude)
+        json_data = await self._api.async_get_all_news_api(
+            self._longitude, self._latitude
+        )
         return _get_news(json_data)
 
 
@@ -261,7 +267,7 @@ def _get_news(api_result: dict) -> List[KrisinformationNews]:
 
 def _get_all_news_from_api(api_result: dict) -> List[KrisinformationNews]:
     """Converts results from API to KrisinformationNews list"""
-    newsList = []
+    news_list = []
     # Get the parameters
     for news in api_result:
         identifier = str(news["Identifier"])
@@ -301,5 +307,5 @@ def _get_all_news_from_api(api_result: dict) -> List[KrisinformationNews]:
             body_links,
             source_id,
         )
-        newsList.append(news)
-    return newsList
+        news_list.append(news)
+    return news_list

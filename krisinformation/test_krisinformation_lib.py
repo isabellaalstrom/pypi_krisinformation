@@ -64,13 +64,13 @@ def test_use_abstract_base_class():
     """test the not implemented stuff"""
     with pytest.raises(NotImplementedError):
         test = KrisinformationAPIBase()
-        test.get_news_api("17.00", "62.1")
+        test.get_all_news_api("17.00", "62.1")
 
 
 def test_krisinformation_integration_test():
     """Only test that uses the actual service. Make sure service is up if fails"""
     api = KrisinformationAPI()
-    news = api.get_news_api("17.00", "62.1")
+    news = api.get_all_news_api("17.00", "62.1")
     assert news is not None
 
 
@@ -78,7 +78,7 @@ def test_krisinformation_integration_test():
 async def test_krisinformation_async_integration_test():
     """Only test that uses the actual service. Make sure service is up if fails"""
     api = KrisinformationAPI()
-    news = await api.async_get_news_api("17.00", "62.1")
+    news = await api.async_get_all_news_api("17.00", "62.1")
     assert news is not None
 
 
@@ -87,7 +87,7 @@ async def test_krisinformation_async_integration_test_use_session():
     """Only test that uses the actual service. Make sure service is up if fails"""
     api = KrisinformationAPI()
     api.session = aiohttp.ClientSession()
-    news = await api.async_get_news_api("17.041326", "62.339859")
+    news = await api.async_get_all_news_api("17.041326", "62.339859")
     assert news is not None
     await api.session.close()
 
@@ -127,7 +127,7 @@ async def test_async_use_abstract_base_class():
     """test the not implemented stuff"""
     with pytest.raises(NotImplementedError):
         test = KrisinformationAPIBase()
-        await test.async_get_news_api("17.00", "62.1")
+        await test.async_get_all_news_api("17.00", "62.1")
 
 
 @pytest.mark.asyncio
@@ -146,11 +146,11 @@ async def test_async_error_from_api():
 class FakeKrisinformationApi(KrisinformationAPIBase):
     """Implements fake class to return API data"""
 
-    async def async_get_news_api(self, longitude: str, latitude: str):
+    async def async_get_all_news_api(self, longitude: str, latitude: str):
         """Real data from the version code works from"""
-        return self.get_news_api(longitude, latitude)
+        return self.get_all_news_api(longitude, latitude)
 
-    def get_news_api(self, longitude: str, latitude: str):
+    def get_all_news_api(self, longitude: str, latitude: str):
         """Real data from the version code works from"""
         return [
             {
