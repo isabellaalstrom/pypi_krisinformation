@@ -5,6 +5,7 @@
 
 from typing import List
 
+import logging
 import aiohttp
 import pytest
 from krisinformation.krisinformation_lib import (
@@ -15,8 +16,6 @@ from krisinformation.krisinformation_lib import (
     KrisinformationException,
 )
 from krisinformation import krisinformation_lib
-
-import logging
 
 
 @pytest.fixture

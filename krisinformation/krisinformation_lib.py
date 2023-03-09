@@ -4,15 +4,13 @@ Krisinformation through the open API:s
 """
 import abc
 from datetime import datetime
-import copy
 import json
-from collections import OrderedDict
 from urllib.request import urlopen
 from typing import List
 import aiohttp
 
 
-APIURL = "http://api.krisinformation.se/v3/news"
+APIURL = "http://api.krisinformation.se/v3/news?format=json"
 
 
 class KrisinformationException(Exception):
