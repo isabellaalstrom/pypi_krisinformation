@@ -1,0 +1,25 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+	"context": "..",
+	"name": "SMHI Dev",
+	"image": "ludeeus/container:python-base",
+	"postCreateCommand": "python3 -m pip install -r requirements.txt",
+	"runArgs": [
+		"-e",
+		"GIT_EDTIOR='code --wait'"
+	],
+	"extensions": [
+		"ms-python.python"
+	],
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.linting.pylintEnabled": true,
+		"python.linting.enabled": true,
+		"python.formatting.provider": "black",
+		"editor.formatOnPaste": false,
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"files.trimTrailingWhitespace": true
+	}
+}
