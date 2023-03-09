@@ -1,7 +1,7 @@
 // See https://aka.ms/vscode-remote/devcontainer.json for format details.
 {
 	"context": "..",
-	"name": "SMHI Dev",
+	"name": "Krisinformation Dev",
 	"image": "ludeeus/container:python-base",
 	"postCreateCommand": "python3 -m pip install -r requirements.txt",
 	"runArgs": [
