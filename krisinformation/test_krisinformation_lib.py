@@ -33,19 +33,19 @@ def krisinformation_real() -> Krisinformation:
 @pytest.fixture
 def krisinformation_news(krisinformation) -> List[KrisinformationNews]:
     """Returns the krisinformation object."""
-    return krisinformation.get_news()
+    return krisinformation.get_all_news()
 
 
 @pytest.fixture
 def first_krisinformation_news(krisinformation) -> KrisinformationNews:
     """Returns the krisinformation object."""
-    return krisinformation.get_news()
+    return krisinformation.get_all_news()
 
 
 @pytest.fixture
 def first_krisinformation_news2(krisinformation) -> KrisinformationNews:
     """Returns the krisinformation object."""
-    return krisinformation.get_news()
+    return krisinformation.get_all_news()
 
 
 @pytest.mark.asyncio
@@ -93,17 +93,19 @@ async def test_krisinformation_async_integration_test_use_session():
 
 
 @pytest.mark.asyncio
-async def test_krisinformation_async_get_news_integration(krisinformation):
+async def test_krisinformation_async_get_all_news_integration(krisinformation):
     """test the async stuff"""
-    news = await krisinformation.async_get_news()
+    news = await krisinformation.async_get_all_news()
     assert news[0] is not None
     assert news is not None
 
 
 @pytest.mark.asyncio
-async def test_krisinformation_async_get_news_integration2(krisinformation_real) -> {}:
+async def test_krisinformation_async_get_all_news_integration2(
+    krisinformation_real,
+) -> {}:
     """test the async stuff"""
-    news = await krisinformation_real.async_get_news()
+    news = await krisinformation_real.async_get_all_news()
     print(news)
     assert news[0] is not None
     assert news is not None
@@ -111,10 +113,12 @@ async def test_krisinformation_async_get_news_integration2(krisinformation_real)
 
 
 @pytest.mark.asyncio
-async def test_krisinformation_async_get_news_integration_use_session(krisinformation):
+async def test_krisinformation_async_get_all_news_integration_use_session(
+    krisinformation,
+):
     """test the async stuff"""
     krisinformation.session = aiohttp.ClientSession()
-    news = await krisinformation.async_get_news()
+    news = await krisinformation.async_get_all_news()
 
     assert news[0] is not None
     assert news is not None
@@ -140,7 +144,7 @@ async def test_async_error_from_api():
 
     krisinformation_error = Krisinformation("17.00", "62.1", api=api)
     with pytest.raises(KrisinformationException):
-        await krisinformation_error.async_get_news()
+        await krisinformation_error.async_get_all_news()
 
 
 class FakeKrisinformationApi(KrisinformationAPIBase):

@@ -238,25 +238,25 @@ class Krisinformation:
         if session:
             self._api.session = session
 
-    def get_news(self) -> List[KrisinformationNews]:
+    def get_all_news(self) -> List[KrisinformationNews]:
         """
         Returns a list of news.
         """
         json_data = self._api.get_all_news_api(self._longitude, self._latitude)
-        return _get_news(json_data)
+        return _get_all_news(json_data)
 
-    async def async_get_news(self) -> List[KrisinformationNews]:
+    async def async_get_all_news(self) -> List[KrisinformationNews]:
         """
         Returns a list of forecasts. The first in list are the current one
         """
         json_data = await self._api.async_get_all_news_api(
             self._longitude, self._latitude
         )
-        return _get_news(json_data)
+        return _get_all_news(json_data)
 
 
 # pylint: disable=R0914, R0912, W0212, R0915
-def _get_news(api_result: dict) -> List[KrisinformationNews]:
+def _get_all_news(api_result: dict) -> List[KrisinformationNews]:
     """Converts results from API to KrisinformationNews list"""
     news = _get_all_news_from_api(api_result)
     return news
