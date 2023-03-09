@@ -10,7 +10,8 @@ from typing import List
 import aiohttp
 
 
-APIURL = "http://api.krisinformation.se/v3/news?format=json"
+BASEURL = "http://api.krisinformation.se/v3/"
+NEWS_ENDPOINT = "news?format=json"
 
 
 class KrisinformationException(Exception):
@@ -181,7 +182,7 @@ class KrisinformationAPI(KrisinformationAPIBase):
 
     def get_news_api(self, longitude: str, latitude: str):
         """gets data from API"""
-        api_url = APIURL
+        api_url = BASEURL + NEWS_ENDPOINT
 
         response = urlopen(api_url)
         data = response.read().decode("utf-8")
@@ -191,7 +192,7 @@ class KrisinformationAPI(KrisinformationAPIBase):
 
     async def async_get_news_api(self, longitude: str, latitude: str):
         """gets data from API asyncronious"""
-        api_url = APIURL
+        api_url = BASEURL + NEWS_ENDPOINT
 
         is_new_session = False
         if self.session is None:

@@ -135,7 +135,8 @@ async def test_async_error_from_api():
     """test the async stuff"""
     api = KrisinformationAPI()
     # Faulty template
-    krisinformation_lib.APIURL = "http://api.krisinformation.se/v3/new"
+    krisinformation_lib.BASEURL = "http://api.krisinformation.se/v3/"
+    krisinformation_lib.NEWS_ENDPOINT = "new"
 
     krisinformation_error = Krisinformation("17.00", "62.1", api=api)
     with pytest.raises(KrisinformationException):
